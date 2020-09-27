@@ -123,6 +123,6 @@ if(isset($_POST['create']))
 }
 else
 {
-    header("Location: ../CreateCustomer.php?create=success");
+    header("Location: ../CreateCustomer.php?create=check1");
     exit();
 }

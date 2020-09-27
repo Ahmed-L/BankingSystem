@@ -3,15 +3,22 @@
 ?>
 
 <main>
-
-    <section class="section-default">
+    <head>
+    <link rel="stylesheet" href="include/formstyle.css">
+    </head>
+    <section class="container">
         <h2>Set Account Information</h2>
         <form class="form-signup" action="Include/CreateCustomerAccount.php"method="post">
         <input type="number" name="AccountID" placeholder="AccountID">
         <input type="number" name="CurrentBalance" placeholder="Current Balance">
-        <input type="number" name="AccountTypeID" placeholder="AccountTypeID">
-        <input type="number" name="AccountStatusTypeID" placeholder="AccountStatusTypeID">
-        <input type="number" name="InterestSavingsRateID" placeholder="InterestSavingsRateID">
+        <input type="number" list="type" name="AccountTypeID" placeholder="AccountTypeID">
+        <datalist id="type">
+        <option value="1">
+        <option value="2">
+        <option value="3">
+        </datalist>
+        <input type="number" list="type" name="AccountStatusTypeID" placeholder="AccountStatusTypeID">
+        <input type="number" list="type" name="InterestSavingsRateID" placeholder="InterestSavingsRateID">
         <h3>Customer Details</h3>
         <!--Account ID store in a var and set it as customer's Account ID later -->
         <input type="number" name="CustomerID" placeholder="CustomerID">
@@ -26,9 +33,9 @@
         <h3>Set Customer Account Information</h3>
         <input type="text" name="username" placeholder="Username">
         <input type="password" name="password" placeholder="Password">
-        <button type="submit" name="create">Create Account</button>
+        <button type="submit" class="registerbtn" name="create">Create Account</button>
         </form>
-    </section>
+</section>
     
 
 </main>

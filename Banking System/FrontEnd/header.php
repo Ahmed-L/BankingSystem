@@ -4,12 +4,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="include/styles.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        img{
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 15%;
+            background:black;
+        }
+</style>
 </head>
 <body>
     <header>
+        <nav class="topnav">
+             <a href="Menu.php">Menu</a>
+             <a href="Customers.php">Customers</a>
+             <a href="CreateCustomer.php">New Customer Account</a> 
+             <a href="Manager.php">Manager</a>
+             <a href="Transactions.php">Transaction Log</a>
+    </nav>
+    </header>
+    <nav>
     <div class='header-logout'>
             <?php
                 if(isset($_SESSION['FirstName']))
@@ -24,29 +43,10 @@
                 }
             ?>
         </div>
-        <nav>
-            <a href='#'>
+    <a href='#'>
                 <img src="icon.png" alt="icon">
             </a>
-        <ul>
-            <li> <a href="Menu.php">Menu</a></li>
-            <li> <a href="Customers.php">Customers</a></li>
-            <li> <a href="CreateCustomer.php">New Customer Account</a> </li>
-            <li> <a href="Manager.php">Manager</a></li>
-            <li> <a href="#">Transaction Log</a></li>
-        </ul>
-        
-        <!--
-        <div>
-            <form action="include/Accountlogin.php" method="post">
-                <input type="name" name="username_login" placeholder="Username">
-                <input type="password" name="password_login" placeholder="Password">
-                <button type="submit" name="Account_Login_btn">Login</button>
-            </form>
-        </div>
-        -->
     </nav>
-    </header>
 
             
 </body>

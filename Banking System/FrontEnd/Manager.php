@@ -29,7 +29,7 @@ else
 <form action="include/ManagerOptions.php" method="post">
 <ul>
     <li><a href="include/ManagerOptions.php">Create or Edit Employee Information</a></li>
-    <li><a href="#">Customize Interest Rates(incomplete)</a></li>
+    <li><a href="CustomizeInterestRates.php">Customize Interest Rates</a></li>
     
 </ul>
 </form>
