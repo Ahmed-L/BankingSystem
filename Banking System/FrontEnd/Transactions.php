@@ -2,6 +2,7 @@
     require 'header.php';
 ?>
 <main>
+<link rel="stylesheet" href="include/formstyle2.css">
 <?php
 if(isset($_SESSION['EmployeeIsManager']))
 {
@@ -24,21 +25,28 @@ else
 ?>
 </main>
 
-    <div>
+    <div id="editForm2">
         <h2>Search for Transaction Log</h2>
         <form action="include/TransactionLog.php" method="post">
         <input type="number" name="TransactionID" placeholder="TransactionID">
-        <button type="submit" class="registerbtn" name="search">Add</button>
+</div>
+<div id="editForm2">
+        <button type="submit" class="registerbtn" name="search">Search</button>
         </form>
     </div>
 
-    <div>
+    <div id="editForm2">
         <h2>Carry out Transaction</h2>
         <form action="include/TransactionPush.php" method="post">
         <input type="number" name="TransactionTypeID" placeholder="TransactionTypeID">
+</div>
+<div id="editForm2">
         <input type="number" name="TransactionAmount" placeholder="TransactionAmount">
+</div>
+<div id="editForm2">
         <input type="number" name="AccountID" placeholder="AccountID">
-        <input type="number" name="EmployeeID" placeholder="EmployeeID">
+    </div>
+    <div id="editForm2">
         <button type="submit" class="registerbtn" name="push">Execute</button>
         </form>
     </div>

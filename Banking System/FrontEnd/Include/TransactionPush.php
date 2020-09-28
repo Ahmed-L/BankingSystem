@@ -10,7 +10,7 @@ if(isset($_POST['push']))
     $TransactionTypeID=$_POST['TransactionTypeID'];
     $TransactionAmount=$_POST['TransactionAmount'];
     $AccountID=$_POST['AccountID'];
-    $EmployeeID=$_POST['EmployeeID'];
+    $EmployeeID=$_SESSION['EmployeeID'];
     $TransactionDate=(string)date("d-m-Y");
 
 
@@ -25,41 +25,80 @@ if(isset($_POST['push']))
             }
         }
     
-    $sql="SELECT CurrentBalance FROM Account WHERE AccounID = $AccountID";
+    $sql="SELECT CurrentBalance FROM Account WHERE AccountID = $AccountID";
     $result=mysqli_query($connect,$sql);
      $resultCheck=mysqli_num_rows($result);
             if($resultCheck>0)
             {
                 while($row = mysqli_fetch_row($result))
                 {   
-                    $OldBalance=$row[0];
+                    $OldBalance=(double)$row[0];
                 }
-            }
-
-    echo "TransactionID:".$TransactionID;
+            }  
+    
+            //----------------------
     
     if($TransactionTypeID==1)
     {
-        $NewBalance=$OldBalance+$TransactionAmount;
-        $sql="UPDATE Account SET CurrentBalance=$NewBalance WHERE AccountID = $AccountID";
+        $NewBalance=(double)($OldBalance+$TransactionAmount);
+        $sql="UPDATE Account SET CurrentBalance=? WHERE AccountID = $AccountID";
+        $pstatement=mysqli_stmt_init($connect);
+                if(!mysqli_stmt_prepare($pstatement, $sql))
+                {
+                    echo"Transaction SQL error for update";
+                    echo "<script>setTimeout(\"location.href = 'http://localhost:8080/frontend/Transactions.php';\",1500);</script>";
+                    exit();
+                }
+                else
+                {
+                    mysqli_stmt_bind_param($pstatement, "i",$NewBalance);
+                    mysqli_stmt_execute($pstatement);
+                }
+
     }
     else if($TransactionTypeID==2)
     {
-        $NewBalance=$OldBalance-$TransactionAmount-50;
-        $sql="UPDATE Account SET CurrentBalance=$NewBalance WHERE AccountID = $AccountID";
+        $NewBalance=(double)($OldBalance-$TransactionAmount-50);
+        $sql="UPDATE Account SET CurrentBalance=? WHERE AccountID = $AccountID";
+        $pstatement=mysqli_stmt_init($connect);
+        if(!mysqli_stmt_prepare($pstatement, $sql))
+        {
+            echo"Transaction SQL error for update";
+            echo "<script>setTimeout(\"location.href = 'http://localhost:8080/frontend/Transactions.php';\",1500);</script>";
+            exit();
+        }
+        else
+        {
+            mysqli_stmt_bind_param($pstatement, "i",$NewBalance);
+            mysqli_stmt_execute($pstatement);
+        }
+
     }
     else
     {
-        $NewBalance=$OldBalance+$TransactionAmount-150;
-        $sql="UPDATE Account SET CurrentBalance=$NewBalance WHERE AccountID = $AccountID";
+        $NewBalance=($OldBalance+$TransactionAmount-150);
+        $sql="UPDATE Account SET CurrentBalance=? WHERE AccountID = $AccountID";
+        $pstatement=mysqli_stmt_init($connect);
+        if(!mysqli_stmt_prepare($pstatement, $sql))
+        {
+            echo"Transaction SQL error for update";
+            echo "<script>setTimeout(\"location.href = 'http://localhost:8080/frontend/Transactions.php';\",1500);</script>";
+            exit();
+        }
+        else
+        {
+            mysqli_stmt_bind_param($pstatement, "i",$NewBalance);
+            mysqli_stmt_execute($pstatement);
+        }
     }
 
+    //----
 
 
-
-    if(empty($EmployeeID)||empty($TransactionAmount)||empty($TransactionTypeID)||empty($AccountID))
+    if(empty($TransactionAmount)||empty($TransactionTypeID)||empty($AccountID))
     {
-        header("Location: ../Transactions.php?error=emptyfields");
+        echo"Empty Fields, Please fill up the Form";
+        echo "<script>setTimeout(\"location.href = 'http://localhost:8080/frontend/Transactions.php';\",1500);</script>";
         exit();
     }
     else
@@ -80,7 +119,8 @@ if(isset($_POST['push']))
         $pstatement=mysqli_stmt_init($connect);
         if(!mysqli_stmt_prepare($pstatement,$sql))
         {
-            header("Location: ../Transactions.php?errorr=sqlerror=TransactionID_error_select_sql_TRANSACTONPUSH");
+            echo"Transaction push error 2";
+            echo "<script>setTimeout(\"location.href = 'http://localhost:8080/frontend/Transactions.php';\",1500);</script>";
             exit();
         }
         else
@@ -92,7 +132,8 @@ if(isset($_POST['push']))
             $resultCheck=mysqli_stmt_num_rows($pstatement);
             if($resultCheck>0)
             {
-                header("Location: ../Transactions.php?error=TransactionIDdoesnotExist");
+                echo"Transaction ID does not exist";
+                echo "<script>setTimeout(\"location.href = 'http://localhost:8080/frontend/Transactions.php';\",1500);</script>";
                 //echo "TransactionID with the following ID does exist.";
                 exit();
             }
@@ -103,19 +144,20 @@ if(isset($_POST['push']))
                 $pstatement=mysqli_stmt_init($connect);
                 if(!mysqli_stmt_prepare($pstatement, $sql))
                 {
-                    header("Location: ../Transactions.php?error=sqlerror=3rd_del");
                     echo "SQL ERROR.";
+                    echo "<script>setTimeout(\"location.href = 'http://localhost:8080/frontend/Transactions.php';\",1500);</script>";
                     exit();
                 }
                 else
                 {
                     mysqli_stmt_bind_param($pstatement, "isiidiii",$TransactionID,$TransactionDate,$TransactionTypeID,$TransactionAmount,$NewBalance,$AccountID,$CustomerID,$EmployeeID);
                     mysqli_stmt_execute($pstatement);
-                    header("Location: ../Transactions.php?addnewemployee=success");
+                    echo"Transaction Successful";
+                    echo "<script>setTimeout(\"location.href = 'http://localhost:8080/frontend/Transactions.php';\",1500);</script>";
                     exit();
                 }
             }
     }
 
-}
+} 
 }

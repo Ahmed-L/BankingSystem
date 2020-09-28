@@ -1,5 +1,6 @@
 <?php
     require "login_header.php";
+    //echo '<script>alert("Welcome to Geeks for Geeks")</script>';
 ?>
 
 <main>

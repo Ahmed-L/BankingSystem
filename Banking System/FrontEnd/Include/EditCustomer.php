@@ -15,7 +15,10 @@ if(isset($_POST['Edit']))
 
     if(empty($CustomerAddress)||empty($CustomerFirstName)||empty( $CustomerLastName)||empty($City)||empty($Nation)||empty($EmailAddress)||empty($Phone))
     {
-        header("Location: ../EditCustomerAccount.php?error=emptyfields");
+        echo "Blank Input!!! "."<br>";
+        echo "Redirecting to previous page again... "."<br>";
+        $url = "http://localhost:8080/frontend/EditCustomerAccount.php" ;
+        header("Refresh: 3; URL= $url");
         exit();
     }
     else
@@ -25,8 +28,10 @@ if(isset($_POST['Edit']))
         $pstatement=mysqli_stmt_init($connect);
         if(!mysqli_stmt_prepare($pstatement,$sql))
         {
-            header("Location: ../EditCustomerAccount.php?errorr=sqlerror=EditCustomer.php_first");
-            exit();
+          echo "Database Access Error "."<br>";
+          echo "Redirecting to previous page again... "."<br>";
+          $url = "http://localhost:8080/frontend/EditCustomerAccount.php" ;
+          exit();
         }
         else
         {
@@ -37,8 +42,10 @@ if(isset($_POST['Edit']))
             $resultCheck=mysqli_stmt_num_rows($pstatement);
             if(!$resultCheck>0)
             {
-                header("Location: ../EditCustomerAccount.php?error=CustomerIDdoesntexist&CustomerID=".$CustomerID);
-                exit();
+              echo "Wrong customer id !!! "."<br>";
+              echo "Redirecting to previous page again... "."<br>";
+              $url = "http://localhost:8080/frontend/EditCustomerAccount.php" ;
+              exit();
             }
             else
             {
@@ -47,14 +54,18 @@ if(isset($_POST['Edit']))
                 $pstatement=mysqli_stmt_init($connect);
                 if(!mysqli_stmt_prepare($pstatement, $sql))
                 {
-                    header("Location: ../EditCustomerAccount.php?error=sqlerror=3rd");
-                    exit();
+                  echo "Database Access Error "."<br>";
+                  echo "Redirecting to previous page again... "."<br>";
+                  $url = "http://localhost:8080/frontend/EditCustomerAccount.php" ;
+                  exit();
                 }
                 else
                 {
                     mysqli_stmt_bind_param($pstatement, "sssssss",$CustomerAddress,$CustomerFirstName,$CustomerLastName,$City,$Nation,$EmailAddress,$Phone);
                     mysqli_stmt_execute($pstatement);
-                    header("Location: ../EditCustomerAccount.php?UpdateAccount=success");
+                    echo "Edited Successfully "."<br>";
+                    echo "Redirecting to previous page again... "."<br>";
+                    $url = "http://localhost:8080/frontend/EditCustomerAccount.php" ;
                     exit();
                 }
             }
@@ -73,8 +84,11 @@ else if(isset($_POST['editpass']))
 
     if(empty($CustomerID||empty($password)))
     {
-        header("Location: ../EditCustomerAccount.php?EmptyCustomerIDorPasswordforRESET");
-        exit();
+      echo "Blank Input!!! "."<br>";
+      echo "Redirecting to previous page again... "."<br>";
+      $url = "http://localhost:8080/frontend/EditCustomerAccount.php" ;
+      header("Refresh: 3; URL= $url");
+      exit();
     }
     else
     {
@@ -82,16 +96,22 @@ else if(isset($_POST['editpass']))
                 $pstatement=mysqli_stmt_init($connect);
                 if(!mysqli_stmt_prepare($pstatement, $sql))
                 {
-                    header("Location: ../EditCustomerAccount.php?error=CustomerIDnotfound");
-                    exit();
+                  echo "Wrong customer ID "."<br>";
+                  echo "Redirecting to previous page again... "."<br>";
+                  $url = "http://localhost:8080/frontend/EditCustomerAccount.php" ;
+                  header("Refresh: 3; URL= $url");
+                  exit();
                 }
                 else
                 {
                     mysqli_stmt_bind_param($pstatement, "s",$password);
                     mysqli_stmt_execute($pstatement);
-                    header("Location: ../EditCustomerAccount.php?PasswordReset=success");
+                    echo "Password Changed Successfully"."<br>";
+                    echo "Redirecting to previous page again... "."<br>";
+                    $url = "http://localhost:8080/frontend/EditCustomerAccount.php" ;
+                    header("Refresh: 3; URL= $url");
                     exit();
-                }   
+                }
     }
 }
 else if(isset($_POST['change']))
@@ -99,14 +119,20 @@ else if(isset($_POST['change']))
     require 'db_handler.php';
 
     $CustomerID=$_POST['CustomerID_acc_sts'];
-    $AccountStatusTypeID=$_POST['AccountStatusTypeID'];
     $AccountTypeID=$_POST['AccountTypeID'];
-    $InterestSavingsRateID=$_POST['InterestSavingsRateID'];
+    $AccountStatusTypeID=$_POST['AccountStatusTypeID'];
+
+    $InterestSavingsRateID=$AccountTypeID;
+
+
 
     if(empty($CustomerID)||empty($AccountStatusTypeID)||empty($AccountTypeID)||empty($InterestSavingsRateID))
     {
-        header("Location: ../EditCustomerAccount.php?error=Account_stat_emptyfields");
-        exit();
+      echo "Blank Input!!! "."<br>";
+      echo "Redirecting to previous page again... "."<br>";
+      $url = "http://localhost:8080/frontend/EditCustomerAccount.php" ;
+      header("Refresh: 3; URL= $url");
+      exit();
     }
     else
     {
@@ -115,8 +141,11 @@ else if(isset($_POST['change']))
                 $pstatement=mysqli_stmt_init($connect);
                 if(!mysqli_stmt_prepare($pstatement, $sql))
                 {
-                    header("Location: ../EditCustomerAccount.php?error=CustomerIDnotfound");
-                    exit();
+                  echo "Wrong customer ID "."<br>";
+                  echo "Redirecting to previous page again... "."<br>";
+                  $url = "http://localhost:8080/frontend/EditCustomerAccount.php" ;
+                  header("Refresh: 3; URL= $url");
+                  exit();
                 }
                 else
                 {
@@ -128,8 +157,11 @@ else if(isset($_POST['change']))
                 $pstatement=mysqli_stmt_init($connect);
                 if(!mysqli_stmt_prepare($pstatement, $sql))
                 {
-                    header("Location: ../EditCustomerAccount.php?error=CustomerIDnotfound");
-                    exit();
+                  echo "Wrong customer ID "."<br>";
+                  echo "Redirecting to previous page again... "."<br>";
+                  $url = "http://localhost:8080/frontend/EditCustomerAccount.php" ;
+                  header("Refresh: 3; URL= $url");
+                  exit();
                 }
                 else
                 {
@@ -141,16 +173,22 @@ else if(isset($_POST['change']))
                 $pstatement=mysqli_stmt_init($connect);
                 if(!mysqli_stmt_prepare($pstatement, $sql))
                 {
-                    header("Location: ../EditCustomerAccount.php?error=CustomerIDnotfound");
-                    exit();
+                  echo "Wrong customer ID "."<br>";
+                  echo "Redirecting to previous page again... "."<br>";
+                  $url = "http://localhost:8080/frontend/EditCustomerAccount.php" ;
+                  header("Refresh: 3; URL= $url");
+                  exit();
                 }
                 else
                 {
                     mysqli_stmt_bind_param($pstatement, "i",$InterestSavingsRateID);
                     mysqli_stmt_execute($pstatement);
-                    header("Location: ../EditCustomerAccount.php?Acc_sts_change=updated");
+                    echo "Changed Successfully "."<br>";
+                    echo "Redirecting to previous page again... "."<br>";
+                    $url = "http://localhost:8080/frontend/EditCustomerAccount.php" ;
+                    header("Refresh: 3; URL= $url");
                     exit();
-                }       
+                }
     }
 }
 else if(isset($_POST['delete']))
@@ -158,13 +196,15 @@ else if(isset($_POST['delete']))
     require 'db_handler.php';
 
     $CustomerID=$_POST['CustomerID_del'];
-    $Delete=$_POST['delete_text'];
 
 
-    if(empty($CustomerID)&&!($Delete=='DELETE'))
+    if(empty($CustomerID))
     {
-        header("Location: ../EditCustomerAccount.php?errorindeleting=emptyfields");
-        exit();
+      echo "Blank input "."<br>";
+      echo "Redirecting to previous page again... "."<br>";
+      $url = "http://localhost:8080/frontend/EditCustomerAccount.php" ;
+      header("Refresh: 3; URL= $url");
+      exit();
     }
     else
     {
@@ -173,8 +213,11 @@ else if(isset($_POST['delete']))
         $pstatement=mysqli_stmt_init($connect);
         if(!mysqli_stmt_prepare($pstatement,$sql))
         {
-            header("Location: ../EditCustomerAccount.php?errorr=sqlerror=EditCustomer.php_first_del");
-            exit();
+          echo "DB error "."<br>";
+          echo "Redirecting to previous page again... "."<br>";
+          $url = "http://localhost:8080/frontend/EditCustomerAccount.php" ;
+          header("Refresh: 3; URL= $url");
+          exit();
         }
         else
         {
@@ -185,8 +228,11 @@ else if(isset($_POST['delete']))
             $resultCheck=mysqli_stmt_num_rows($pstatement);
             if(!$resultCheck>0)
             {
-                header("Location: ../EditCustomerAccount.php?error=CustomerIDdoesntexist&CustomerID=".$CustomerID);
-                exit();
+              echo "Wrong customer ID "."<br>";
+              echo "Redirecting to previous page again... "."<br>";
+              $url = "http://localhost:8080/frontend/EditCustomerAccount.php" ;
+              header("Refresh: 3; URL= $url");
+              exit();
             }
             else
             {
@@ -195,14 +241,21 @@ else if(isset($_POST['delete']))
                 $pstatement=mysqli_stmt_init($connect);
                 if(!mysqli_stmt_prepare($pstatement, $sql))
                 {
-                    header("Location: ../EditCustomerAccount.php?error=sqlerror=3rd_del");
-                    exit();
+                  echo "DB ERROR <br>";
+                  echo "Redirecting to previous page again... <br>";
+                  $url = "http://localhost:8080/frontend/EditCustomerAccount.php" ;
+                  header("Refresh: 3; URL= $url");
+                  exit();
                 }
                 else
                 {
                     mysqli_stmt_bind_param($pstatement, "i",$CustomerID);
                     mysqli_stmt_execute($pstatement);
-                    header("Location: ../EditCustomerAccount.php?DeleteAccount=success");
+                    echo "Deleted id= $CustomerID<br>";
+                    echo "Redirecting to previous page again... <br>";
+                    $url = "http://localhost:8080/frontend/EditCustomerAccount.php" ;
+                    header("Refresh: 3; URL= $url");
+
                     exit();
                 }
             }
@@ -214,6 +267,9 @@ else if(isset($_POST['delete']))
 }
 else
 {
-    header("Location: ../EditCustomerAccount.php?error=CriticalError");
-                    exit();
+  echo "ERROR "."<br>";
+  echo "Redirecting to previous page again... "."<br>";
+  $url = "http://localhost:8080/frontend/EditCustomerAccount.php" ;
+  header("Refresh: 3; URL= $url");
+  exit();
 }

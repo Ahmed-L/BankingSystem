@@ -3,6 +3,9 @@
 ?>
 
 <main>
+    <head>
+    <link rel="stylesheet" href="include/linkstyle.css">
+</head>
 <?php
 if(isset($_SESSION['EmployeeIsManager']))
 {
@@ -27,11 +30,10 @@ else
 
 <section>
 <form action="include/ManagerOptions.php" method="post">
-<ul>
-    <li><a href="include/ManagerOptions.php">Create or Edit Employee Information</a></li>
-    <li><a href="CustomizeInterestRates.php">Customize Interest Rates</a></li>
+
+    <a id="links" href="include/ManagerOptions.php">Create or Edit Employee Information</a>
+    <a id="links" href="CustomizeInterestRates.php">Customize Interest Rates</a>
     
-</ul>
 </form>
 </section>
 

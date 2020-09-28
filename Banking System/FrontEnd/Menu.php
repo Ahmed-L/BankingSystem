@@ -8,5 +8,5 @@
 
 <?php
     //require "footer.php";
-    echo "Welcome, ".$_SESSION['FirstName'];
+    echo "<p style='font-size: 25px;color:hotpink; text-align:center;margin: 0 auto;'>Welcome, Mr.".$_SESSION['FirstName']."</p>";
 ?>

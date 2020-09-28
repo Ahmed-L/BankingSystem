@@ -8,12 +8,15 @@ if(isset($_POST['Account_Login_btn']))
 
     if(empty($EmployeeID)||empty($Password))
     {
-        header("Location: ../index.php?emptyfields");
+	echo "Blank Input!!! <br>";
+  echo "Redirecting to login page again... <br>";
+	$url = "http://localhost:8080/frontend/index.php" ;
+        header("Refresh: 3; URL= $url");
         exit();
     }
     else
     {
-        
+
         //-------------------------------------------------------------------------------
         /*$sql="Select * FROM Employee";
         $result=mysqli_query($connect,$sql);
@@ -22,9 +25,9 @@ if(isset($_POST['Account_Login_btn']))
         if($resultCheck>0)
         {
             while($row = mysqli_fetch_assoc($result))
-            {   
+            {
                 echo "\t".$row['EmployeeID']."\t".$row['Employee_Password']."\n";
-                
+
             }
         }
         else
@@ -35,7 +38,7 @@ if(isset($_POST['Account_Login_btn']))
 
         //-------------------------------------------------------------------------------
 
-        
+
         $sql="SELECT * FROM employee WHERE EmployeeID=?";
         $pstatement=mysqli_stmt_init($connect);
         if(!mysqli_stmt_prepare($pstatement,$sql))
@@ -61,17 +64,23 @@ if(isset($_POST['Account_Login_btn']))
                 }
                 else
                 {
-                    header("Location: ../index.php?error=wrongpassword");
+			echo "Wrong password!!!"."<br>";
+  			echo "Redirecting to login page again... "."<br>";
+			$url = "http://localhost:8080/frontend/index.php" ;
+        		header("Refresh: 3; URL= $url");
                     exit();
                 }
             }
             else
             {
-                header("Location: ../index.php?error=nouser");
+                echo "Wrong username !!!"."<br>";
+  		echo "Redirecting to login page again... "."<br>";
+		$url = "http://localhost:8080/frontend/index.php" ;
+        	header("Refresh: 3; URL= $url");
                 exit();
             }
         }
-        
+
     }
 }
 else

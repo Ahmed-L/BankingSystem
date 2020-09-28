@@ -1,3 +1,6 @@
+<head>
+<link rel="stylesheet" href="fetchstyle.css">
+</head>
 <?php
     if(isset($_POST['view']))
     {
@@ -10,10 +13,9 @@
         if($resultCheck>0)
         {
             while($row = mysqli_fetch_assoc($result))
-            {   
-                echo "CustomerID: ".$row['CustomerID']."     AccountID: ".$row['AccountID'];
-                echo '<p></p>';
-                
+            {
+                echo "<p>CustomerID: ".$row['CustomerID']."     AccountID: ".$row['AccountID']."</p>";
+
             }
         }
         else
@@ -26,6 +28,15 @@
         require 'db_handler.php';
         $CustomerID=$_POST['CustomerID'];
 
+        if(trim($CustomerID)=="")
+        {
+          echo "Blank Input!!! "."<br>";
+          echo "Redirecting to previous page again... "."<br>";
+          $url = "http://localhost:8080/frontend/Customers.php" ;
+          header("Refresh: 3; URL= $url");
+          exit();
+        }
+
         $sql="SELECT * FROM customer WHERE CustomerID = $CustomerID";
         $result=mysqli_query($connect,$sql);
         $resultCheck=mysqli_num_rows($result);
@@ -33,21 +44,33 @@
         if($resultCheck>0)
         {
             while($row = mysqli_fetch_assoc($result))
-            {   
-                echo "CustomerID: ".$row['CustomerID']." AccountID: ".$row['AccountID']." CustomerAddress: ".$row['CustomerAddress']." Name: ".$row['CustomerFirstName']." ".$row['CustomerLastName'].
-                " Country,City:  ".$row['Nation'].",".$row['City']." Email: ".$row['EmailAddress']." Phone: ".$row['Phone']." Username: ".$row['Username'];
-                echo '<p></p>';
+            {
+                echo "<p>CustomerID: ".$row['CustomerID']." AccountID: ".$row['AccountID']."</p>"."<p>CustomerAddress: ".$row['CustomerAddress']."</p>"."<p> Name: ".$row['CustomerFirstName']." ".$row['CustomerLastName']."</p>"."<p>
+                 Country,City:  ".$row['Nation'].",".$row['City']."</p>"."<p> Email: ".$row['EmailAddress']." Phone: ".$row['Phone']."</p>"."<p> Username: ".$row['Username'].'</p>';
+                //echo '<p></p>';
             }
         }
         else
         {
-            echo "0 results";
+            echo "Wrong Customer ID!!!<br>";
+            echo "Redirecting to previous page again... <br>";
+            $url = "http://localhost:8080/frontend/Customers.php" ;
+            header("Refresh: 3; URL= $url");
         }
     }
     else if(isset($_POST['find_acc_sts']))
     {
         require 'db_handler.php';
         $CustomerID=$_POST['CustomerID_acc_sts'];
+
+        if(trim($CustomerID)=="")
+        {
+          echo "Blank Input!!! "."<br>";
+          echo "Redirecting to previous page again... "."<br>";
+          $url = "http://localhost:8080/frontend/Customers.php" ;
+          header("Refresh: 3; URL= $url");
+          exit();
+        }
 
         $sql="SELECT  *
         from account
@@ -58,19 +81,25 @@
         if($resultCheck>0)
         {
             while($row = mysqli_fetch_assoc($result))
-            {   
+            {
                 echo "CustomerID: $CustomerID  AccountID: ".$row['AccountID']." CurrentBalance: ".$row['CurrentBalance']." AccountTypeID: ".$row['AccountTypeID'].
                 " AccountStatusTypeID:  ".$row['AccountStatusTypeID']." InterestSavingsRateID: ".$row['InterestSavingsRateID'];
                 echo '<p></p>';
-                
+
             }
         }
         else
         {
-            echo "0 results";
+          echo "Wrong Customer ID <br>";
+          echo "Redirecting to previous page again....<br>";
+          $url = "http://localhost:8080/frontend/Customers.php" ;
+          header("Refresh: 3; URL= $url");
         }
     }
     else
     {
-        echo "not pressed";
+      echo "ERRORR <br>";
+      echo "Redirecting to previous page again....<br>";
+      $url = "http://localhost:8080/frontend/Customers.php" ;
+      header("Refresh: 3; URL= $url");
     }
