@@ -61,15 +61,24 @@
     <button class="collapsible">Change Account Type and Status</button>
     <div class="content">
         <form action="include/EditCustomer.php" method="post">
-        <datalist id="type">
-        <option value="1">
-        <option value="2">
-        <option value="3">
-        </datalist>
+
         <input type="number" list="type" name="CustomerID_acc_sts" placeholder="CustomerID">
-        <input type="number" list="type" name="AccountStatusTypeID" placeholder="AccountStatusTypeID">
-        <input type="number" list="type" name="AccountTypeID" placeholder="AccountTypeID">
-        <input type="number" list="type" name="InterestSavingsRateID" placeholder="InterestSavingsRateID">
+        <br><br>
+        <label for="AccountTypeID">Choose account type:</label>
+        <select id="AccountTypeID" name="AccountTypeID">
+          <option value="1">Savings Account</option>
+          <option value="2">Brokerage Account</option>
+          <option value="3">Individual Retirement Account</option>
+        </select>
+        <br><br>
+        <label for="AccountStatusTypeID">Choose account status:</label>
+        <select id="AccountStatusTypeID" name="AccountStatusTypeID">
+          <option value="1">Active clients</option>
+          <option value="2">Closed clients</option>
+          <option value="3">Inactive clients</option>
+        </select>
+        <br><br>
+      
         <button type="submit" name="change">Change</button>
         </form>
     </div>
@@ -78,15 +87,13 @@
     <div class="content">
         <form action="include/EditCustomer.php" method="post">
         <input type="number" name="CustomerID_del" placeholder="CustomerID">
-        <input type="name" name="delete_text" placeholder="Please type in DELETE">
-        <button type="submit" name="delete">Confirm Delete</button>
+
+        <button type="submit" name="delete" >Confirm Delete</button>
+
         </form>
     </div>
 
-    <button class="collapsible">Delete Customer Account</button>
-    <div class="content">
-        <p>something for test</p>
-</div>
+
 
 <script>
 var coll = document.getElementsByClassName("collapsible");
@@ -109,5 +116,5 @@ for (i = 0; i < coll.length; i++) {
 
 
 <?php
-    require "footer.php";
+  //  require "footer.php";
 ?>

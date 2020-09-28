@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="include/styles.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Home</title>
     <style>
         img{
             display: block;
@@ -23,13 +23,13 @@
         <nav class="topnav">
              <a href="Menu.php">Home</a>
              <a href="Customers.php">Customers</a>
-             <a href="CreateCustomer.php">New Customer Account</a> 
+             <a href="CreateCustomer.php">New Customer Account</a>
              <a href="Manager.php">Manager</a>
              <a href="Transactions.php">Transaction Log</a>
     </nav>
     </header>
     <nav>
-    <div class='header-logout'>
+    <div class="topnav">
             <?php
                 if(isset($_SESSION['FirstName']))
                 {
@@ -44,10 +44,10 @@
             ?>
         </div>
     <a href='Menu.php'>
-                <img src="icon.png" alt="icon">
+                <img style="margin-bottom: 30px; margin-top: 15px;" src="icon.png" alt="icon">
             </a>
     </nav>
 
-            
+
 </body>
 </html>

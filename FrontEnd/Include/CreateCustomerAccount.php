@@ -9,7 +9,7 @@ if(isset($_POST['create']))
     $AccountStatusTypeID=$_POST['AccountStatusTypeID'];
     $AccountTypeID=$_POST['AccountTypeID'];
     $CurrentBalance=$_POST['CurrentBalance'];
-    $InterestSavingsRateID=$_POST['InterestSavingsRateID'];
+    $InterestSavingsRateID=$AccountTypeID;
     $CustomerID=$_POST['CustomerID'];
     $CustomerAddress=$_POST['CustomerAddress'];
     $CustomerFirstName=$_POST['CustomerFirstName'];
@@ -20,12 +20,15 @@ if(isset($_POST['create']))
     $Phone=$_POST['Phone'];
 
     //||empty($CustomerID)||empty($CustomerAddress)||(empty($Phone)
-    if(empty($username)||empty($password)||empty($AccountID)||empty($AccountTypeID)||empty($AccountStatusTypeID)||empty($InterestSavingsRateID||empty($CustomerID)))
+    if(empty($username)||empty($password)||empty($AccountID)||empty($AccountTypeID)||
+      empty($AccountStatusTypeID)||empty($InterestSavingsRateID||empty($CustomerID)||empty($CustomerFirstName)))
     {
-        header("Location: ../CreateCustomer.php?error=emptyfields");
-        //||empty($password)||empty($AccountID)||empty($AccountTypeID)||empty($AccountStatusTypeID)||empty($InterestSavingsRateID)
-        //header("Location: ../CreateCustomer.php?error=emptyfields&username=".$username."&AccountID=".$AccountID."&AccountTypeID=".$AccountTypeID."&AccountStatusTypeID=".$AccountStatusTypeID."&InterestSavingsRate=".$InterestSavingsRate);
-        exit();
+      echo "Necessary fields empty "."<br>";
+      echo "Redirecting to previous page again... "."<br>";
+      $url = "http://localhost:8080/frontend/CreateCustomer.php" ;
+      header("Refresh: 3; URL= $url");
+      exit();
+
     }
     else
     {
@@ -34,8 +37,11 @@ if(isset($_POST['create']))
 
         if(!mysqli_stmt_prepare($pstatement,$sql))
         {
-            header("Location: ../CreateCustomer.php?errorr=sqlerror=1st");
-            exit();
+          echo "Access error "."<br>";
+          echo "Redirecting to previous page again... "."<br>";
+          $url = "http://localhost:8080/frontend/CreateCustomer.php" ;
+          header("Refresh: 3; URL= $url");
+          exit();
         }
         else
         {
@@ -46,8 +52,11 @@ if(isset($_POST['create']))
             $resultCheck=mysqli_stmt_num_rows($pstatement); //check rows
             if($resultCheck>0)
             {
-                header("Location: ../CreateCustomer.php?error=AccountIDexists&AccountID=".$AccountID);
-                exit();
+              echo "Account id : $AccountID already exists <br>";
+              echo "Redirecting to previous page again...<br>";
+              $url = "http://localhost:8080/frontend/CreateCustomer.php" ;
+              header("Refresh: 3; URL= $url");
+              exit();
             }
             else
             {
@@ -56,8 +65,11 @@ if(isset($_POST['create']))
                 $pstatement=mysqli_stmt_init($connect);
                 if(!mysqli_stmt_prepare($pstatement, $sql))
                 {
-                    header("Location: ../CreateCustomer.php?error=sqlerror=2nd");
-                    exit();
+                  echo "DB error <br>";
+                  echo "Redirecting to previous page again...<br>";
+                  $url = "http://localhost:8080/frontend/CreateCustomer.php" ;
+                  header("Refresh: 3; URL= $url");
+                  exit();
                 }
                 else
                 {
@@ -71,8 +83,11 @@ if(isset($_POST['create']))
                 $pstatement=mysqli_stmt_init($connect);
                 if(!mysqli_stmt_prepare($pstatement, $sql))
                 {
-                    header("Location: ../CreateCustomer.php?error=sqlerror=3rd");
-                    exit();
+                  echo "DB error <br>";
+                  echo "Redirecting to previous page again...<br>";
+                  $url = "http://localhost:8080/frontend/CreateCustomer.php" ;
+                  header("Refresh: 3; URL= $url");
+                  exit();
                 }
                 else
                 {
@@ -87,8 +102,11 @@ if(isset($_POST['create']))
                 $pstatement=mysqli_stmt_init($connect);
                 if(!mysqli_stmt_prepare($pstatement, $sql))
                 {
-                    header("Location: ../CreateCustomer.php?error=sqlerror=4th");
-                    exit();
+                  echo "DB error <br>";
+                  echo "Redirecting to previous page again...<br>";
+                  $url = "http://localhost:8080/frontend/CreateCustomer.php" ;
+                  header("Refresh: 3; URL= $url");
+                  exit();
                 }
                 else
                 {
@@ -102,17 +120,24 @@ if(isset($_POST['create']))
                 $pstatement=mysqli_stmt_init($connect);
                 if(!mysqli_stmt_prepare($pstatement, $sql))
                 {
-                    header("Location: ../CreateCustomer.php?error=sqlerror=5th");
-                    exit();
+                  echo "DB error <br>";
+                  echo "Redirecting to previous page again...<br>";
+                  $url = "http://localhost:8080/frontend/CreateCustomer.php" ;
+                  header("Refresh: 3; URL= $url");
+                  exit();
                 }
                 else
                 {
                     mysqli_stmt_bind_param($pstatement, "ii",$AccountID,$CustomerID);
                     mysqli_stmt_execute($pstatement);
-                    header("Location: ../CreateCustomer.php?createAccount=success");
+                    echo "Welcome <b>$CustomerFirstName</b> <br>";
+                    echo "Created account successfully <br>";
+                    echo "Redirecting to previous page again...<br>";
+                    $url = "http://localhost:8080/frontend/CreateCustomer.php" ;
+                    header("Refresh: 3; URL= $url");
                     exit();
                 }
-                
+
             }
 
         }
@@ -123,6 +148,9 @@ if(isset($_POST['create']))
 }
 else
 {
-    header("Location: ../CreateCustomer.php?create=check1");
-    exit();
+  echo "DB error <br>";
+  echo "Redirecting to previous page again...<br>";
+  $url = "http://localhost:8080/frontend/CreateCustomer.php" ;
+  header("Refresh: 3; URL= $url");
+  exit();
 }

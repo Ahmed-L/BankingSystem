@@ -10,7 +10,8 @@ if(isset($_POST['employee_create']))
 
     if(empty($EmployeeID)||empty($FirstName)||empty($LastName)||empty($Employee_Password))
     {
-        header("Location: ManagerOptions.php?error=emptyfields");
+        echo "Empty Fields, Please Fill up the Forms.";
+        echo "<script>setTimeout(\"location.href = 'http://localhost:8080/frontend/include/ManagerOptions.php';\",1500);</script>";
         exit();
     }
     else
@@ -19,7 +20,8 @@ if(isset($_POST['employee_create']))
         $pstatement=mysqli_stmt_init($connect);
         if(!mysqli_stmt_prepare($pstatement,$sql))
         {
-            header("Location: ../ManagerOptions.php?errorr=sqlerror=AddEmployee.php_first_del");
+            echo "SQL error=First.";
+        echo "<script>setTimeout(\"location.href = 'http://localhost:8080/frontend/include/ManagerOptions.php';\",1500);</script>";
             exit();
         }
         else
@@ -31,8 +33,8 @@ if(isset($_POST['employee_create']))
             $resultCheck=mysqli_stmt_num_rows($pstatement);
             if($resultCheck>0)
             {
-                header("Location: ../ManagerOptions.php?error=EmployeeIDexists&EmployeeID=".$EmployeeID);
                 echo "Employee with the following ID already exists.";
+                echo "<script>setTimeout(\"location.href = 'http://localhost:8080/frontend/include/ManagerOptions.php';\",1500);</script>";
                 exit();
             }
             else
@@ -42,15 +44,16 @@ if(isset($_POST['employee_create']))
                 $pstatement=mysqli_stmt_init($connect);
                 if(!mysqli_stmt_prepare($pstatement, $sql))
                 {
-                    header("Location: ../ManagerOptions.php?error=sqlerror=3rd_del");
                     echo "SQL ERROR.";
+                    echo "<script>setTimeout(\"location.href = 'http://localhost:8080/frontend/include/ManagerOptions.php';\",1500);</script>";
                     exit();
                 }
                 else
                 {
                     mysqli_stmt_bind_param($pstatement, "issis",$EmployeeID,$FirstName,$LastName,$BitZero,$Employee_Password);
                     mysqli_stmt_execute($pstatement);
-                    header("Location: ../Manager.php?addnewemployee=success");
+                    echo"Successfully added a new employee";
+                    echo "<script>setTimeout(\"location.href = 'http://localhost:8080/frontend/Manager.php';\",1500);</script>";
                     exit();
                 }
             }
@@ -68,7 +71,8 @@ else if(isset($_POST['employee_edit']))
 
     if(empty($EmployeeID)||empty($FirstName)||empty($LastName)||empty($Employee_Password))
     {
-        header("Location: ManagerOptions.php?error=emptyfields");
+        echo"Empty Fields, please fill up the form";
+        echo "<script>setTimeout(\"location.href = 'http://localhost:8080/frontend/include/ManagerOptions.php';\",1500);</script>";
         exit();
     }
     else
@@ -77,7 +81,8 @@ else if(isset($_POST['employee_edit']))
         $pstatement=mysqli_stmt_init($connect);
         if(!mysqli_stmt_prepare($pstatement,$sql))
         {
-            header("Location: ../ManagerOptions.php?errorr=sqlerror=AddEmployee.php_first_del");
+            echo"Sql error=3rd";
+            echo "<script>setTimeout(\"location.href = 'http://localhost:8080/frontend/include/ManagerOptions.php';\",1500);</script>";
             exit();
         }
         else
@@ -89,8 +94,8 @@ else if(isset($_POST['employee_edit']))
             $resultCheck=mysqli_stmt_num_rows($pstatement);
             if(!$resultCheck>0)
             {
-                header("Location: ../ManagerOptions.php?error=EmployeeIDdoesntexist&EmployeeID=".$EmployeeID);
                 echo "Employee with the following ID does not exist.";
+                echo "<script>setTimeout(\"location.href = 'http://localhost:8080/frontend/include/ManagerOptions.php';\",1500);</script>";
                 exit();
             }
             else
@@ -100,15 +105,16 @@ else if(isset($_POST['employee_edit']))
                 $pstatement=mysqli_stmt_init($connect);
                 if(!mysqli_stmt_prepare($pstatement, $sql))
                 {
-                    header("Location: ../ManagerOptions.php?error=sqlerror=3rd_del");
                     echo "SQL ERROR.";
+                    echo "<script>setTimeout(\"location.href = 'http://localhost:8080/frontend/include/ManagerOptions.php';\",1500);</script>";
                     exit();
                 }
                 else
                 {
                     mysqli_stmt_bind_param($pstatement, "sss",$FirstName,$LastName,$Employee_Password);
                     mysqli_stmt_execute($pstatement);
-                    header("Location: ../Manager.php?updateemployee=success");
+                    echo"Updated Successfully";
+                    echo "<script>setTimeout(\"location.href = 'http://localhost:8080/frontend/Manager.php';\",1500);</script>";
                     exit();
                 }
             }
@@ -122,10 +128,17 @@ else if(isset($_POST['employee_delete']))
 {
     require 'db_handler.php';
     $EmployeeID=$_POST['_EmployeeID_'];
+    if($EmployeeID==1)
+    {
+        echo"Im the boss. sorry.";
+        echo "<script>setTimeout(\"location.href = 'http://localhost:8080/frontend/include/ManagerOptions.php';\",1500);</script>";
+        exit();
+    }
 
     if(empty($EmployeeID))
     {
-        header("Location: ManagerOptions.php?=EmptyID");
+        echo"empty ID, please enter an ID";
+        echo "<script>setTimeout(\"location.href = 'http://localhost:8080/frontend/include/ManagerOptions.php';\",1500);</script>";
         exit();
     }
     else
@@ -134,7 +147,8 @@ else if(isset($_POST['employee_delete']))
         $pstatement=mysqli_stmt_init($connect);
         if(!mysqli_stmt_prepare($pstatement,$sql))
         {
-            header("Location: ../ManagerOptions.php?errorr=sqlerror=AddEmployee.php_third_del");
+            echo"SQL error = 3rd = del";
+            echo "<script>setTimeout(\"location.href = 'http://localhost:8080/frontend/include/ManagerOptions.php';\",1500);</script>";
             exit();
         }
         else
@@ -146,8 +160,8 @@ else if(isset($_POST['employee_delete']))
             $resultCheck=mysqli_stmt_num_rows($pstatement);
             if(!$resultCheck>0)
             {
-                header("Location: ../ManagerOptions.php?error=EmployeeIDdoesntexist&EmployeeID=".$EmployeeID);
                 echo "Employee with the following ID does not exist.";
+                echo "<script>setTimeout(\"location.href = 'http://localhost:8080/frontend/include/ManagerOptions.php';\",1500);</script>";
                 exit();
             }
             else
@@ -157,14 +171,16 @@ else if(isset($_POST['employee_delete']))
                 $pstatement=mysqli_stmt_init($connect);
                 if(!mysqli_stmt_prepare($pstatement, $sql))
                 {
-                    header("Location: ../ManagerOptions.php?error=sqlerror=delerror");
+                    echo"del_sql_error";
+                    echo "<script>setTimeout(\"location.href = 'http://localhost:8080/frontend/include/ManagerOptions.php';\",1500);</script>";
                     exit();
                 }
                 else
                 {
                     mysqli_stmt_bind_param($pstatement, "i",$EmployeeID);
                     mysqli_stmt_execute($pstatement);
-                    header("Location:../Manager.php?EmployeeRemoved=true");
+                    echo"<p style='font-size=30px;'>Successfully Removed Employee<p>";
+                    echo "<script>setTimeout(\"location.href = 'http://localhost:8080/frontend/Manager.php';\",1500);</script>";
                     exit();
                 }
             }
@@ -175,6 +191,11 @@ else if(isset($_POST['employee_delete']))
     mysqli_stmt_close($pstatement);
     mysqli_close($connect);
 
+}
+else if(isset($_POST['Back']))
+{
+    header("Location:../Manager.php");
+    exit();
 }
 else
 {

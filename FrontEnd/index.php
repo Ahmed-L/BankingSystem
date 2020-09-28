@@ -1,4 +1,5 @@
 <?php
+    echo '<p>Please Log in</p>';
     require "login_header.php";
 ?>
 
@@ -11,7 +12,7 @@ if(isset($_SESSION['FirstName']))
 }
 else
 {
-    echo '<p>Please Log in</p>';
+    //echo '<p>Please Log in</p>';
 }
 ?>
 </main>

@@ -8,6 +8,7 @@ if(isset($_POST['ratechange']))
     if(empty($InterestSavingsRateID)||empty($InterestRateDescription)||empty($InterestRateValue))
     {
         echo "Empty Fields\n";
+        echo "<script>setTimeout(\"location.href = 'http://localhost:8080/frontend/CustomizeInterestRates.php';\",1500);</script>";
     }
     else
     {
@@ -16,7 +17,8 @@ if(isset($_POST['ratechange']))
 
         if(!mysqli_stmt_prepare($pstatement,$sql))
         {
-            header("Location: ../Manager.php?errorr=sqlerror=1st");
+            echo"SQL error_1";
+            echo "<script>setTimeout(\"location.href = 'http://localhost:8080/frontend/CustomizeInterestRates.php';\",1500);</script>";
             exit();
         }
         else
@@ -28,7 +30,8 @@ if(isset($_POST['ratechange']))
             $resultCheck=mysqli_stmt_num_rows($pstatement); //check rows
             if(!$resultCheck>0)
             {
-                header("Location: ../Manager.php?error=AccountIDnotFound&AccountID=".$AccountID);
+                echo"ID does not exist";
+                echo "<script>setTimeout(\"location.href = 'http://localhost:8080/frontend/CustomizeInterestRates.php';\",1500);</script>";
                 exit();
             }
             else
@@ -38,14 +41,16 @@ if(isset($_POST['ratechange']))
                 $pstatement=mysqli_stmt_init($connect);
                 if(!mysqli_stmt_prepare($pstatement, $sql))
                 {
-                    header("Location: ../Manager.php?error=sqlerror=2nd");
+                    echo"Sql error 2";
+                    echo "<script>setTimeout(\"location.href = 'http://localhost:8080/frontend/CustomizeInterestRates.php';\",1500);</script>";
                     exit();
                 }
                 else
                 {
-                    mysqli_stmt_bind_param($pstatement, "is",$InterestRateValue,$InterestRateDescription);
+                    mysqli_stmt_bind_param($pstatement, "ds",$InterestRateValue,$InterestRateDescription);
                     mysqli_stmt_execute($pstatement);
-                    header("Location: ../Manager.php?createAccount=success");
+                    echo"Successfully changed Interest attributes";
+                    echo "<script>setTimeout(\"location.href = 'http://localhost:8080/frontend/Manager.php';\",1500);</script>";
                     exit();
                 }
 

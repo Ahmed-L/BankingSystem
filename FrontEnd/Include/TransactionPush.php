@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 if(isset($_POST['push']))
 {
     require 'db_handler.php';
@@ -10,8 +11,33 @@ if(isset($_POST['push']))
     $TransactionTypeID=$_POST['TransactionTypeID'];
     $TransactionAmount=$_POST['TransactionAmount'];
     $AccountID=$_POST['AccountID'];
-    $EmployeeID=$_POST['EmployeeID'];
+    $EmployeeID=$_SESSION['EmployeeID'];
     $TransactionDate=(string)date("d-m-Y");
+
+    $sql="SELECT AccountID FROM Account WHERE AccountID=?";
+        $pstatement=mysqli_stmt_init($connect);
+        if(!mysqli_stmt_prepare($pstatement,$sql))
+        {
+            echo"error_sql";
+            echo "<script>setTimeout(\"location.href = 'http://localhost:8080/frontend/Transactions.php';\",1500);</script>";
+            exit();
+        }
+        else
+        {
+            mysqli_stmt_bind_param($pstatement, "i", $AccountID);
+            mysqli_stmt_execute($pstatement);
+            //---------------------------------
+            mysqli_stmt_store_result($pstatement);
+            $resultCheck=mysqli_stmt_num_rows($pstatement);
+            if(!$resultCheck>0)
+            {
+                echo "AccountID with the following ID does not exist.";
+                echo "<script>setTimeout(\"location.href = 'http://localhost:8080/frontend/Transactions.php';\",1500);</script>";
+                exit();
+            }
+
+
+        
 
 
     $sql="SELECT MAX(TransactionID) FROM TransactionLog";
@@ -45,12 +71,13 @@ if(isset($_POST['push']))
         $pstatement=mysqli_stmt_init($connect);
                 if(!mysqli_stmt_prepare($pstatement, $sql))
                 {
-                    header("Location: ../Transactions.php?error=IDnotfound");
+                    echo"Transaction SQL error for update";
+                    echo "<script>setTimeout(\"location.href = 'http://localhost:8080/frontend/Transactions.php';\",1500);</script>";
                     exit();
                 }
                 else
                 {
-                    mysqli_stmt_bind_param($pstatement, "i",$NewBalance);
+                    mysqli_stmt_bind_param($pstatement, "d",$NewBalance);
                     mysqli_stmt_execute($pstatement);
                 }
 
@@ -62,29 +89,31 @@ if(isset($_POST['push']))
         $pstatement=mysqli_stmt_init($connect);
         if(!mysqli_stmt_prepare($pstatement, $sql))
         {
-            header("Location: ../Transactions.php?error=IDnotfound");
+            echo"Transaction SQL error for update";
+            echo "<script>setTimeout(\"location.href = 'http://localhost:8080/frontend/Transactions.php';\",1500);</script>";
             exit();
         }
         else
         {
-            mysqli_stmt_bind_param($pstatement, "i",$NewBalance);
+            mysqli_stmt_bind_param($pstatement, "d",$NewBalance);
             mysqli_stmt_execute($pstatement);
         }
 
     }
     else
     {
-        $NewBalance=($OldBalance+$TransactionAmount-150);
+        $NewBalance=($OldBalance+$TransactionAmount);
         $sql="UPDATE Account SET CurrentBalance=? WHERE AccountID = $AccountID";
         $pstatement=mysqli_stmt_init($connect);
         if(!mysqli_stmt_prepare($pstatement, $sql))
         {
-            header("Location: ../Transactions.php?error=IDnotfound");
+            echo"Transaction SQL error for update";
+            echo "<script>setTimeout(\"location.href = 'http://localhost:8080/frontend/Transactions.php';\",1500);</script>";
             exit();
         }
         else
         {
-            mysqli_stmt_bind_param($pstatement, "i",$NewBalance);
+            mysqli_stmt_bind_param($pstatement, "d",$NewBalance);
             mysqli_stmt_execute($pstatement);
         }
     }
@@ -92,9 +121,10 @@ if(isset($_POST['push']))
     //----
 
 
-    if(empty($EmployeeID)||empty($TransactionAmount)||empty($TransactionTypeID)||empty($AccountID))
+    if(empty($TransactionAmount)||empty($TransactionTypeID)||empty($AccountID))
     {
-        header("Location: ../Transactions.php?error=emptyfields");
+        echo"Empty Fields, Please fill up the Form";
+        echo "<script>setTimeout(\"location.href = 'http://localhost:8080/frontend/Transactions.php';\",1500);</script>";
         exit();
     }
     else
@@ -115,7 +145,8 @@ if(isset($_POST['push']))
         $pstatement=mysqli_stmt_init($connect);
         if(!mysqli_stmt_prepare($pstatement,$sql))
         {
-            header("Location: ../Transactions.php?errorr=sqlerror=TransactionID_error_select_sql_TRANSACTONPUSH");
+            echo"Transaction push error 2";
+            echo "<script>setTimeout(\"location.href = 'http://localhost:8080/frontend/Transactions.php';\",1500);</script>";
             exit();
         }
         else
@@ -127,7 +158,8 @@ if(isset($_POST['push']))
             $resultCheck=mysqli_stmt_num_rows($pstatement);
             if($resultCheck>0)
             {
-                header("Location: ../Transactions.php?error=TransactionIDdoesnotExist");
+                echo"Transaction ID does not exist";
+                echo "<script>setTimeout(\"location.href = 'http://localhost:8080/frontend/Transactions.php';\",1500);</script>";
                 //echo "TransactionID with the following ID does exist.";
                 exit();
             }
@@ -138,19 +170,21 @@ if(isset($_POST['push']))
                 $pstatement=mysqli_stmt_init($connect);
                 if(!mysqli_stmt_prepare($pstatement, $sql))
                 {
-                    header("Location: ../Transactions.php?error=sqlerror=3rd_del");
                     echo "SQL ERROR.";
+                    echo "<script>setTimeout(\"location.href = 'http://localhost:8080/frontend/Transactions.php';\",1500);</script>";
                     exit();
                 }
                 else
                 {
-                    mysqli_stmt_bind_param($pstatement, "isiidiii",$TransactionID,$TransactionDate,$TransactionTypeID,$TransactionAmount,$NewBalance,$AccountID,$CustomerID,$EmployeeID);
+                    mysqli_stmt_bind_param($pstatement, "isiddiii",$TransactionID,$TransactionDate,$TransactionTypeID,$TransactionAmount,$NewBalance,$AccountID,$CustomerID,$EmployeeID);
                     mysqli_stmt_execute($pstatement);
-                    header("Location: ../Transactions.php?addnewemployee=success");
+                    echo"Transaction Successful";
+                    echo "<script>setTimeout(\"location.href = 'http://localhost:8080/frontend/Transactions.php';\",1500);</script>";
                     exit();
                 }
             }
     }
 
 } 
-}
+        }
+    }

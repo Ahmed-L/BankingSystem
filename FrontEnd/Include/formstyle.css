@@ -8,14 +8,14 @@
 /* Full-width input fields */
 input[type=text], input[type=password],input[type=number], input[type=name] {
   width: 35%;
-  padding: 15px;
-  margin: 4px 0 16px 610px;
+  padding: 25px;
   display: inline-block;
   border: none;
   background: #f1f1f1;
+  text-align: center;
 }
 
-h2{
+h1{
   margin: auto;
   text-align: center;
   padding-top: 25px;
@@ -24,7 +24,7 @@ h2{
 }
 
 h3{
-  margin: auto;
+  margin: 10px;
   text-align: center;
   padding-top: 25px;
   padding-bottom: 18px;
@@ -46,20 +46,26 @@ hr {
 .registerbtn {
   background-color: #224752;
   color: white;
-  padding: 16px 20px;
-  margin: 20px 700px;
+  padding: 20px 25px;
   border: none;
   cursor: pointer;
-  width: 25%;
+  width: 20%;
   opacity: 0.9;
   border-radius: 15px;
 }
+
+/*h1, h2, h3{
+  text-align: center;
+  text-shadow: black;
+  font-size: 18px;
+  font-family: fantasy;
+}*/
 
 .registerbtn:hover {
   opacity:1;
 }
 
-/* Add a blue text color to links */
+/* Add text color to links */
 a {
   color: rgb(59, 44, 66);
 }
@@ -67,5 +73,11 @@ a {
 /* Set a grey background color and center the text of the "sign in" section */
 .signin {
   background-color: #f1f1f1;
+  text-align: center;
+}
+
+#editForm{
+  margin: 0 auto;
+  width: 75%;
   text-align: center;
 }

@@ -2,9 +2,7 @@
     require 'header.php';
 ?>
 <main>
-    <head>
-    <link rel="stylesheet" href="include/formstyle.css">
-    </head>
+<link rel="stylesheet" href="include/formstyle2.css">
 <?php
 if(isset($_SESSION['EmployeeIsManager']))
 {
@@ -27,21 +25,34 @@ else
 ?>
 </main>
 
-    <div class="container">
+    <div id="editForm2">
         <h2>Search for Transaction Log</h2>
         <form action="include/TransactionLog.php" method="post">
         <input type="number" name="TransactionID" placeholder="TransactionID">
-        <button type="submit" class="registerbtn" name="search">Add</button>
+</div>
+<div id="editForm2">
+        <button type="submit" class="registerbtn" name="search">Search</button>
         </form>
     </div>
 
-    <div class="container">
-        <h2>Carry out Transaction</h2>
+    <div id="editForm2">
+        <h2>Carry out Transaction</h2><br>
         <form action="include/TransactionPush.php" method="post">
-        <input type="number" name="TransactionTypeID" placeholder="TransactionTypeID">
-        <input type="number" name="TransactionAmount" placeholder="TransactionAmount">
+        <label for="TransactionTypeID">Transaction Type</label>
+        <select id="TransactionTypeID" name="TransactionTypeID">
+          <option value="1">Deposit</option>
+          <option value="2">Withdraw</option>
+          <option value="3">Loan</option>
+        </select>
+        <br><br>
+</div>
+<div id="editForm2">
+        <input type="number" step="0.01" min="0" max="10000000000" name="TransactionAmount" placeholder="TransactionAmount">
+</div>
+<div id="editForm2">
         <input type="number" name="AccountID" placeholder="AccountID">
-        <input type="number" name="EmployeeID" placeholder="EmployeeID">
+    </div>
+    <div id="editForm2">
         <button type="submit" class="registerbtn" name="push">Execute</button>
         </form>
     </div>
