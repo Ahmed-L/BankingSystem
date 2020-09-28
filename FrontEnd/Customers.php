@@ -4,7 +4,7 @@
 
 <main>
 <head>
-<link rel="stylesheet" href="include/formstyle.css">
+<link rel="stylesheet" href="include/formstyle2.css">
 </head>
     <section class="container">
         <h1>View All Customers</h1>
@@ -30,5 +30,5 @@
 </main>
 
 <?php
-    //require "footer.php";
+    //require "footer.php"; 
 ?>
