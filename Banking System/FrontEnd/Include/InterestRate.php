@@ -47,7 +47,7 @@ if(isset($_POST['ratechange']))
                 }
                 else
                 {
-                    mysqli_stmt_bind_param($pstatement, "is",$InterestRateValue,$InterestRateDescription);
+                    mysqli_stmt_bind_param($pstatement, "ds",$InterestRateValue,$InterestRateDescription);
                     mysqli_stmt_execute($pstatement);
                     echo"Successfully changed Interest attributes";
                     echo "<script>setTimeout(\"location.href = 'http://localhost:8080/frontend/Manager.php';\",1500);</script>";

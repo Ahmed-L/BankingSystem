@@ -41,7 +41,7 @@ else
         <input type="number" name="TransactionTypeID" placeholder="TransactionTypeID">
 </div>
 <div id="editForm2">
-        <input type="number" name="TransactionAmount" placeholder="TransactionAmount">
+        <input type="number" step="0.01" min="0" max="10000000000" name="TransactionAmount" placeholder="TransactionAmount">
 </div>
 <div id="editForm2">
         <input type="number" name="AccountID" placeholder="AccountID">

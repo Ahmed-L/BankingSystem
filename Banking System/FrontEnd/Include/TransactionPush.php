@@ -51,7 +51,7 @@ if(isset($_POST['push']))
                 }
                 else
                 {
-                    mysqli_stmt_bind_param($pstatement, "i",$NewBalance);
+                    mysqli_stmt_bind_param($pstatement, "d",$NewBalance);
                     mysqli_stmt_execute($pstatement);
                 }
 
@@ -69,7 +69,7 @@ if(isset($_POST['push']))
         }
         else
         {
-            mysqli_stmt_bind_param($pstatement, "i",$NewBalance);
+            mysqli_stmt_bind_param($pstatement, "d",$NewBalance);
             mysqli_stmt_execute($pstatement);
         }
 
@@ -87,7 +87,7 @@ if(isset($_POST['push']))
         }
         else
         {
-            mysqli_stmt_bind_param($pstatement, "i",$NewBalance);
+            mysqli_stmt_bind_param($pstatement, "d",$NewBalance);
             mysqli_stmt_execute($pstatement);
         }
     }
@@ -150,7 +150,7 @@ if(isset($_POST['push']))
                 }
                 else
                 {
-                    mysqli_stmt_bind_param($pstatement, "isiidiii",$TransactionID,$TransactionDate,$TransactionTypeID,$TransactionAmount,$NewBalance,$AccountID,$CustomerID,$EmployeeID);
+                    mysqli_stmt_bind_param($pstatement, "isiddiii",$TransactionID,$TransactionDate,$TransactionTypeID,$TransactionAmount,$NewBalance,$AccountID,$CustomerID,$EmployeeID);
                     mysqli_stmt_execute($pstatement);
                     echo"Transaction Successful";
                     echo "<script>setTimeout(\"location.href = 'http://localhost:8080/frontend/Transactions.php';\",1500);</script>";

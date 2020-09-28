@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 06, 2020 at 02:57 PM
+-- Generation Time: Sep 28, 2020 at 07:50 PM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.4.7
 
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `account` (
   `AccountID` int(11) NOT NULL,
-  `CurrentBalance` int(11) DEFAULT NULL,
+  `CurrentBalance` float DEFAULT NULL,
   `AccountTypeID` tinyint(4) DEFAULT NULL,
   `AccountStatusTypeID` tinyint(4) DEFAULT NULL,
   `InterestSavingsRateID` tinyint(4) DEFAULT NULL
@@ -40,8 +40,9 @@ CREATE TABLE `account` (
 --
 
 INSERT INTO `account` (`AccountID`, `CurrentBalance`, `AccountTypeID`, `AccountStatusTypeID`, `InterestSavingsRateID`) VALUES
-(181, 500000, 1, 1, 1),
-(12345, 5000, 2, 2, 2),
+(69, 110.23, 1, 1, 1),
+(181, 490790, 1, 1, 1),
+(12345, 690080, 2, 2, 2),
 (12346, 20000, 2, 1, 2);
 
 -- --------------------------------------------------------
@@ -108,8 +109,9 @@ CREATE TABLE `customer` (
 --
 
 INSERT INTO `customer` (`CustomerID`, `AccountID`, `CustomerAddress`, `CustomerFirstName`, `CustomerLastName`, `City`, `Nation`, `EmailAddress`, `Phone`, `Username`) VALUES
+(169, 69, 'asd', 'asd', 'asd', 'asd', 'asd', 'asdasd', '', 'asdasd'),
 (1526, 181, 'Dhanmondi', 'Faria', 'Mehzabin', 'Dhaka', 'Bangladesh', 'isfok@gmail.com', '2441139', 'Faria_SM'),
-(12345, 12345, 'Dreamland', 'Amecia', 'de Rune', 'Paris', 'France', 'plaguestale@gmail.com', '6942069', 'Jane'),
+(12345, 12345, 'Dhaka', 'Faisal', 'Faisal', 'Faisal', 'MLE', 'nai', '69', 'Jane'),
 (12346, 12346, '23ShibuyaStreet', 'Mister', 'Bean', 'Tokyo', 'Japan', 'mrbean@goodchildhoodtimes.com', '1110001', 'Mr.Bean');
 
 -- --------------------------------------------------------
@@ -130,7 +132,8 @@ CREATE TABLE `customeraccount` (
 INSERT INTO `customeraccount` (`AccountID`, `CustomerID`) VALUES
 (12345, 12345),
 (12346, 12346),
-(181, 1526);
+(181, 1526),
+(69, 169);
 
 -- --------------------------------------------------------
 
@@ -152,8 +155,7 @@ CREATE TABLE `employee` (
 
 INSERT INTO `employee` (`EmployeeID`, `FirstName`, `LastName`, `EmployeeIsManager`, `Employee_Password`) VALUES
 (1, 'Bot', 'Gaben', b'1', 'abc'),
-(2, 'Nicola', 'Tesla', b'0', '123'),
-(3, 'Elon', 'Musk', b'0', '123');
+(10, 'Noob Mid', 'Injoker', b'0', 'null');
 
 -- --------------------------------------------------------
 
@@ -172,7 +174,7 @@ CREATE TABLE `savingsinterestrates` (
 --
 
 INSERT INTO `savingsinterestrates` (`InterestSavingsRateID`, `InterestRateValue`, `InterestRateDescription`) VALUES
-(1, 7.5, 'SavingsAccRate'),
+(1, 4.5, 'Savings Account'),
 (2, 9, 'BrokerageAccRate'),
 (3, 4.5, 'RetirementArrangemen');
 
@@ -186,7 +188,7 @@ CREATE TABLE `transactionlog` (
   `TransactionID` int(11) NOT NULL,
   `TransactionDate` varchar(50) DEFAULT NULL,
   `TransactionTypeID` tinyint(4) DEFAULT NULL,
-  `TransactionAmount` int(11) DEFAULT NULL,
+  `TransactionAmount` float DEFAULT NULL,
   `NewBalance` float DEFAULT NULL,
   `AccountID` int(11) DEFAULT NULL,
   `CustomerID` int(11) DEFAULT NULL,
@@ -198,7 +200,17 @@ CREATE TABLE `transactionlog` (
 --
 
 INSERT INTO `transactionlog` (`TransactionID`, `TransactionDate`, `TransactionTypeID`, `TransactionAmount`, `NewBalance`, `AccountID`, `CustomerID`, `EmployeeID`) VALUES
-(101010, '2020-08-01', 1, 2000, 7000, 12345, 12345, 3);
+(1, '27-09-2020', 1, 10000, 10000, 181, 1526, 1),
+(101021, '27-09-2020', 1, 2000, 7000, 12345, 12345, 1),
+(101022, '27-09-2020', 1, 1000, 6000, 12345, 12345, 3),
+(101023, '27-09-2020', 2, 10000, 489950, 181, 1526, 1),
+(101024, '27-09-2020', 2, 4950, 0, 12345, 12345, 1),
+(101025, '28-09-2020', 1, 1000, 1000, 181, 1526, 1),
+(101026, '28-09-2020', 2, 10000, -10050, 181, 1526, 3),
+(101027, '28-09-2020', 1, 690069, 690069, 12345, 12345, 1),
+(101028, '28-09-2020', 1, 420, 490790, 181, 1526, NULL),
+(101029, '28-09-2020', 1, 10.5, 690080, 12345, 12345, NULL),
+(101030, '28-09-2020', 1, 10.23, 110.23, 69, 169, NULL);
 
 -- --------------------------------------------------------
 
@@ -219,8 +231,7 @@ CREATE TABLE `transactiontype` (
 INSERT INTO `transactiontype` (`TransactionTypeID`, `TransactionTypeName`, `TransactionFeeAmount`) VALUES
 (1, 'Deposit', 0),
 (2, 'Withdrawal', 50),
-(3, 'Transfer', 150),
-(4, 'ATM', 0);
+(3, 'Transfer', 150);
 
 -- --------------------------------------------------------
 
@@ -239,6 +250,7 @@ CREATE TABLE `userlogins` (
 --
 
 INSERT INTO `userlogins` (`Username`, `UserPassword`, `AccountID`) VALUES
+('asdasd', 'asdasd', 69),
 ('Faria_SM', '4LL3Y', 181),
 ('Jane', 'newpass', 12345),
 ('Mr.Bean', 'Teddy123', 12346);
@@ -343,15 +355,6 @@ ALTER TABLE `customer`
 ALTER TABLE `customeraccount`
   ADD CONSTRAINT `customeraccount_fk_1` FOREIGN KEY (`CustomerID`) REFERENCES `customer` (`CustomerID`) ON DELETE CASCADE,
   ADD CONSTRAINT `customeraccount_fk_2` FOREIGN KEY (`AccountID`) REFERENCES `account` (`AccountID`) ON DELETE CASCADE;
-
---
--- Constraints for table `transactionlog`
---
-ALTER TABLE `transactionlog`
-  ADD CONSTRAINT `transactionlog_ibfk_1` FOREIGN KEY (`AccountID`) REFERENCES `account` (`AccountID`),
-  ADD CONSTRAINT `transactionlog_ibfk_2` FOREIGN KEY (`CustomerID`) REFERENCES `customer` (`CustomerID`),
-  ADD CONSTRAINT `transactionlog_ibfk_3` FOREIGN KEY (`EmployeeID`) REFERENCES `employee` (`EmployeeID`),
-  ADD CONSTRAINT `transactionlog_ibfk_4` FOREIGN KEY (`TransactionTypeID`) REFERENCES `transactiontype` (`TransactionTypeID`);
 
 --
 -- Constraints for table `userlogins`

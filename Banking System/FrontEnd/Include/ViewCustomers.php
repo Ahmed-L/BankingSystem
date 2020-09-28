@@ -45,8 +45,8 @@
         {
             while($row = mysqli_fetch_assoc($result))
             {
-                echo "<p>CustomerID: ".$row['CustomerID']." AccountID: ".$row['AccountID']."</p>"."<p>CustomerAddress: ".$row['CustomerAddress']."</p>"."<p> Name: ".$row['CustomerFirstName']." ".$row['CustomerLastName']."</p>"."<p>
-                 Country,City:  ".$row['Nation'].",".$row['City']."</p>"."<p> Email: ".$row['EmailAddress']." Phone: ".$row['Phone']."</p>"."<p> Username: ".$row['Username'].'</p>';
+                echo "<p>CustomerID: ".$row['CustomerID']."</p>"."<p> AccountID: ".$row['AccountID']."</p>"."<p>CustomerAddress: ".$row['CustomerAddress']."</p>"."<p> Name: ".$row['CustomerFirstName']." ".$row['CustomerLastName']."</p>"."<p>
+                 Country,City:  ".$row['Nation'].",".$row['City']."</p>"."<p> Email: ".$row['EmailAddress']."</p>"."<p> Phone: ".$row['Phone']."</p>"."<p> Username: ".$row['Username'].'</p>';
                 //echo '<p></p>';
             }
         }
@@ -82,9 +82,9 @@
         {
             while($row = mysqli_fetch_assoc($result))
             {
-                echo "CustomerID: $CustomerID  AccountID: ".$row['AccountID']." CurrentBalance: ".$row['CurrentBalance']." AccountTypeID: ".$row['AccountTypeID'].
-                " AccountStatusTypeID:  ".$row['AccountStatusTypeID']." InterestSavingsRateID: ".$row['InterestSavingsRateID'];
-                echo '<p></p>';
+                echo "<p>CustomerID:".$CustomerID."</p>"."<p> AccountID: ".$row['AccountID']."</p>"."<p> CurrentBalance: ".$row['CurrentBalance']."</p>"."<p> AccountTypeID: ".$row['AccountTypeID'].
+                "</p>"."<p> AccountStatusTypeID:  ".$row['AccountStatusTypeID']."</p>"."<p> InterestSavingsRateID: ".$row['InterestSavingsRateID'];
+                //echo '<p></p>';
 
             }
         }
